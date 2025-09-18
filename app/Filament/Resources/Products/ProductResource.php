@@ -22,6 +22,8 @@ class ProductResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Products';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);
@@ -46,5 +48,10 @@ class ProductResource extends Resource
             'create' => CreateProduct::route('/create'),
             'edit' => EditProduct::route('/{record}/edit'),
         ];
+    }
+
+    public function getColumns(): int|array
+    {
+        return 2;
     }
 }

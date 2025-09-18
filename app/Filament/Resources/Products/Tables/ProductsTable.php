@@ -3,12 +3,15 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use App\Enums\ProductStatusEnum;
+use App\Filament\Resources\Categories\CategoryResource;
 use App\Filament\Resources\Categories\Tables\CategoriesTable;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\ModalTableSelect;
+use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
@@ -31,6 +34,9 @@ class ProductsTable
                 TextColumn::make('category.name')->searchable(),
                 TextColumn::make('tags.name')->searchable(),
                 TextColumn::make('status')->badge(),
+                CheckboxColumn::make('is_active'),
+                TextColumn::make('description'),
+                TextColumn::make('created_at')->since(),
             ])
             ->filters([
                 SelectFilter::make('status')

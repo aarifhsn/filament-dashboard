@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,15 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->nullable()->constrained();
-            $table->string('name');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('product_id')->constrained();
             $table->integer('price');
-            $table->text('description')->nullable();
-            $table->string('status')
-                ->default(ProductStatusEnum::IN_STOCK->value);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_completed')->default(false);
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('orders');
     }
 };
