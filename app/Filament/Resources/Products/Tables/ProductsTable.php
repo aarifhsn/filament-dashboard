@@ -35,7 +35,7 @@ class ProductsTable
                 TextColumn::make('tags.name')->searchable(),
                 TextColumn::make('status')->badge(),
                 CheckboxColumn::make('is_active'),
-                TextColumn::make('description'),
+                TextColumn::make('description')->width('20px'),
                 TextColumn::make('created_at')->since(),
             ])
             ->filters([

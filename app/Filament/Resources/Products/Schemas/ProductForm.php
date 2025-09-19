@@ -18,8 +18,7 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required()
-                    ->unique('products', 'name'),
+                    ->required(),
                 TextInput::make('price')
                     ->prefix('$'),
                 // Select::make('category_id')
