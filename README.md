@@ -78,9 +78,16 @@ php artisan serve
 
 ### Login credentials:
 
--   Email: admin@admin.com
+To access the dashboard, first create an admin user:
 
--   Password: password
+```bash
+php artisan make:filament-user
+```
+
+Follow the prompts to set up the user’s name, email, and password.
+Once created, you can log in at:
+
+http://your-app.test/admin
 
 ## Tech Stack
 
