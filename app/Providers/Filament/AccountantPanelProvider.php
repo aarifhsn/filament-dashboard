@@ -18,36 +18,28 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 
-class AdminPanelProvider extends PanelProvider
+class AccountantPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->registration()
-            ->passwordReset()
-            ->emailVerification()
-            ->path('admin')
+            ->id('accountant')
+            ->path('accountant')
             ->login()
-            ->profile()
+            ->brandName('Accounting Interface')
             ->colors([
-                'primary' => Color::Indigo,
+                'primary' => Color::Green,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
-            //Global Redirect Pages
-            ->resourceCreatePageRedirect('index')
-            ->resourceEditPageRedirect('index')
+            ->discoverResources(in: app_path('Filament/Accountant/Resources'), for: 'App\Filament\Accountant\Resources')
+            ->discoverPages(in: app_path('Filament/Accountant/Pages'), for: 'App\Filament\Accountant\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Accountant/Widgets'), for: 'App\Filament\Accountant\Widgets')
             ->widgets([
-                // AccountWidget::class,
-                // FilamentInfoWidget::class,
+                AccountWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -62,10 +54,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->multiFactorAuthentication([
-                EmailAuthentication::make(),
-            ])
-            ->globalSearchKeyBindings(['command+k', 'ctrl+k']);
+            ]);
     }
 }
