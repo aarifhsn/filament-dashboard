@@ -66,6 +66,9 @@ class AdminPanelProvider extends PanelProvider
             ->multiFactorAuthentication([
                 EmailAuthentication::make(),
             ])
-            ->globalSearchKeyBindings(['command+k', 'ctrl+k']);
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            ]);
     }
 }

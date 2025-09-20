@@ -10,11 +10,13 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasEmailAuthentication
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -53,12 +55,21 @@ class User extends Authenticatable implements FilamentUser, HasEmailAuthenticati
     }
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->getId() === 'admin' && $this->is_admin) {
-            return true;
+        // if ($panel->getId() === 'admin' && $this->is_admin) {
+        //     return true;
+        // }
+
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole('super_admin');
         }
 
-        if ($panel->getId() === 'accountant' && $this->is_admin || $this->is_accountant) {
-            return true;
+
+        // if ($panel->getId() === 'accountant' && $this->is_admin || $this->is_accountant) {
+        //     return true;
+        // }
+
+        if ($panel->getId() === 'Accountant') {
+            return $this->hasRole('accountant');
         }
 
         return false;
